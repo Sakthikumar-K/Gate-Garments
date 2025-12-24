@@ -1,0 +1,70 @@
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ffffff;
+        }
+
+        .add-btn {
+            display: inline-block;
+            margin: 20px 15%;
+            padding: 10px 18px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background: #43a047;
+        }
+
+        table {
+            width: 70%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #1976d2;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f1f7ff;
+        }
+
+        .edit-btn {
+            color: #1976d2;
+            font-weight: bold;
+        }
+
+        .delete-btn {
+            color: #e53935;
+            font-weight: bold;
+        }
+
+        .edit-btn:hover {
+            text-decoration: underline;
+        }
+
+        .delete-btn:hover {
+            text-decoration: underline;
+        }

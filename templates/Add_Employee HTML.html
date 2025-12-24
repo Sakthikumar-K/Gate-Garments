@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Employee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1976d2, #64b5f6);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-container {
+            background: #ffffff;
+            width: 380px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            color: #444;
+        }
+
+        input {
+            width: 100%;
+            padding: 9px;
+            margin-top: 6px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #1976d2;
+            box-shadow: 0 0 4px rgba(25,118,210,0.4);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1565c0;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #1976d2;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Add Employee</h2>
+
+    <form method="post">
+        <label>Name:</label>
+        <input type="text" name="name" required>
+
+        <label>Designation:</label>
+        <input type="text" name="designation" required>
+
+        <label>Address:</label>
+        <input type="text" name="address" required>
+
+        <label>Age:</label>
+        <input type="number" name="age" required>
+
+        <label>Date of Joining:</label>
+        <input type="date" name="joining" required>
+
+        <label>Salary Per Day:</label>
+        <input type="number" name="salary" required>
+
+        <button type="submit">Add Employee</button>
+    </form>
+
+    <a href="Employees.html" class="back-link">← Back to Employee List</a>
+</div>
+
+</body>
+</html>

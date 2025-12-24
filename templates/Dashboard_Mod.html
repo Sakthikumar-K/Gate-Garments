@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 30px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header h2 {
+            color: #fff;
+            font-size: 32px;
+        }
+
+        .logout {
+            background: #ff4b5c;
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        .card {
+            width: 280px;
+            padding: 25px 20px;
+            border-radius: 18px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.03);
+        }
+
+        .icon {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .count {
+            font-size: 44px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .view-btn {
+            padding: 9px 24px;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.25);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.4);
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .view-btn:hover {
+            background: #000000;
+            color: #e1dede;
+        }
+
+        /* Card Colors */
+        .employees { background: linear-gradient(135deg, #184e7d, #54baf9); }
+        .present   { background: linear-gradient(135deg, #2cb85b, #41f1d1); }
+        .expense   { background: linear-gradient(135deg, #f55c8a, #f7e167); color: #333; }
+
+        .expense .view-btn {
+            color: #000000;
+            border-color: rgba(0,0,0,0.3);
+        }
+
+        .expense .view-btn:hover {
+            background: #333;
+            color: #fff;
+        }
+
+        @media (max-width:600px) {
+            .card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>Admin Dashboard</h2>
+    <a href="Login.html" class="logout">Logout</a>
+</div>
+
+<div class="dashboard">
+
+    <!-- Total Employees -->
+    <div class="card employees">
+        <div class="icon">👥</div>
+        <h3>Total Employees</h3>
+        <div class="count" data-target="25">0</div>
+        <a href="employees.html" class="view-btn">View</a>
+    </div>
+
+    <!-- Today Present -->
+    <div class="card present">
+        <div class="icon">✅</div>
+        <h3>Today Present</h3>
+        <div class="count" data-target="18">0</div>
+        <a href="today_present.html" class="view-btn">View</a>
+    </div>
+
+    <!-- Monthly Expenditure -->
+    <div class="card expense">
+        <div class="icon">💰</div>
+        <h3>Monthly Expenditure</h3>
+        <div class="count" data-target="45000">₹0</div>
+        <a href="expenditure.html" class="view-btn">View</a>
+    </div>
+
+</div>
+
+<script>
+    /* Animated Counter */
+    const counters = document.querySelectorAll('.count');
+    counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        let count = 0;
+        const speed = target / 80;
+
+        const update = () => {
+            if (count < target) {
+                count += speed;
+                counter.innerText = counter.innerText.includes('₹')
+                    ? '₹' + Math.floor(count)
+                    : Math.floor(count);
+                requestAnimationFrame(update);
+            } else {
+                counter.innerText = counter.innerText.includes('₹')
+                    ? '₹' + target
+                    : target;
+            }
+        };
+        update();
+    });
+</script>
+
+</body>
+</html>

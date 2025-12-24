@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/employees.css' %}">
+    <style>
+        
+    </style>
+</head>
+<body>
+
+<h2>Employee List</h2>
+
+<a href="Add_Employee HTML.html" class="add-btn">+ Add Employee</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Salary Per Day</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for e in employees %}
+    <tr>
+        <td>001</td>
+        <td>Kaliya</td>
+        <td>600</td>
+        <td>
+            <a href="Edit_Employee HTML.html" class="edit-btn">Edit</a> |
+            <a href="Delete Employee.py"
+               class="delete-btn"
+               onclick="return confirm('Delete this employee?');">
+               Delete
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
