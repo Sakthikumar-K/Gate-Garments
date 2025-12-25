@@ -1,18 +1,27 @@
 {% load static %}
+{% csrf_token %}
 <!DOCTYPE html>
 <html>
 <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/employees.css' %}">
-    <style>
-        
-    </style>
 </head>
 <body>
 
 <h2>Employee List</h2>
 
-<a href="Add_Employee HTML.html" class="add-btn">+ Add Employee</a>
+<a href="{% url 'add_employees' %}" class="add-btn">+ Add Employee</a>
+<a href="{% url 'process_payroll' %}" class="add-btn">Process Payroll</a>
+
+<h3>Mark Attendance</h3>
+<form method="post" action="{% url 'mark_attendance' %}">
+    {% csrf_token %}
+    <label>Emp ID:</label>
+    <input type="text" name="emp_id" required>
+    <label>Date:</label>
+    <input type="date" name="date" value="{% now 'Y-m-d' %}" required>
+    <button type="submit">Mark Present</button>
+</form>
 
 <table>
     <tr>
@@ -24,12 +33,12 @@
 
     {% for e in employees %}
     <tr>
-        <td>001</td>
-        <td>Kaliya</td>
-        <td>600</td>
+        <td>{{ e.emp_id }}</td>
+        <td>{{ e.name }}</td>
+        <td>{{ e.basic_salary }}</td>
         <td>
-            <a href="Edit_Employee HTML.html" class="edit-btn">Edit</a> |
-            <a href="Delete Employee.py"
+            <a href="{% url 'edit_employees' e.id %}" class="edit-btn">Edit</a> |
+            <a href="{% url 'delete_employee' e.id %}"
                class="delete-btn"
                onclick="return confirm('Delete this employee?');">
                Delete

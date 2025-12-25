@@ -13,9 +13,10 @@
     
 
     <form method="post">
+        {% csrf_token %}
         <input type="text" name="username" placeholder="Enter Username" required>
         <input type="password" name="password" placeholder="Enter Password" required>
-        <button type="submit"><a href ="Employees.html" >Login</a>
+        <button type="submit"><a href ="{% url 'employees' %}" >Login</a>
     </form>
 </div>
 

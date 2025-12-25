@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Employee</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add_employees.css' %}">
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Add Employee</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <label>Emp ID:</label>
+        <input type="text" name="emp_id" required>
+
+        <label>Name:</label>
+        <input type="text" name="name" required>
+
+        <label>Age:</label>
+        <input type="number" name="age" required>
+
+        <label>Address:</label>
+        <input type="text" name="address" required>
+
+        <label>Bank Account:</label>
+        <input type="text" name="bank_account" required>
+
+        <label>Salary Per Day:</label>
+        <input type="number" name="salary" required>
+
+        <button type="submit">Add Employee</button>
+    </form>
+
+    <a href="{% url 'employees_list' %}" class="back-link">← Back to Employee List</a>
+</div>
+{% if messages %}
+    {% for message in messages %}
+        <input type="hidden" id="django-message" value="{{ message }}">
+    {% endfor %}
+{% endif %}
+
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

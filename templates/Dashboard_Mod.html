@@ -117,17 +117,33 @@
 
 <div class="header">
     <h2>Admin Dashboard</h2>
-    <a href="Login.html" class="logout">Logout</a>
+    <a href="{% url 'home' %}" class="logout">Logout</a>
 </div>
 
 <div class="dashboard">
 
+    {% if processed %}
+    <div class="card">
+        <h3>Payroll Processed for {{ month }}/{{ year }}</h3>
+        <ul>
+            {% for p in processed %}
+            <li>{{ p.name }} ({{ p.emp }}): {{ p.days_present }} days - ₹{{ p.amount }}</li>
+            {% endfor %}
+        </ul>
+        <form method="post" action="{% url 'pay_salary' %}">
+            {% csrf_token %}
+            <input type="hidden" name="month" value="{{ month }}">
+            <input type="hidden" name="year" value="{{ year }}">
+            <button type="submit" class="view-btn">Pay Salaries</button>
+        </form>
+    </div>
+    {% else %}
     <!-- Total Employees -->
     <div class="card employees">
         <div class="icon">👥</div>
         <h3>Total Employees</h3>
         <div class="count" data-target="25">0</div>
-        <a href="employees.html" class="view-btn">View</a>
+        <a href="{% url 'employees' %}" class="view-btn">View</a>
     </div>
 
     <!-- Today Present -->
@@ -135,7 +151,7 @@
         <div class="icon">✅</div>
         <h3>Today Present</h3>
         <div class="count" data-target="18">0</div>
-        <a href="today_present.html" class="view-btn">View</a>
+        <a href="#" class="view-btn">View</a>
     </div>
 
     <!-- Monthly Expenditure -->
@@ -143,8 +159,9 @@
         <div class="icon">💰</div>
         <h3>Monthly Expenditure</h3>
         <div class="count" data-target="45000">₹0</div>
-        <a href="expenditure.html" class="view-btn">View</a>
+        <a href="#" class="view-btn">View</a>
     </div>
+    {% endif %}
 
 </div>
 

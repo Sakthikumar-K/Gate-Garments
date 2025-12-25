@@ -7,12 +7,60 @@ from .models import Employee, Attendance, SalaryPayment
 
 
 def home(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        # Simple check for demo
+        if username == 'admin' and password == 'admin':
+            request.session['logged_in'] = True
+            return redirect('employees.html')
+        else:
+            messages.error(request, 'Invalid credentials')
     return render(request, 'Login.html')
+
+
+def add_employee(request):
+    if request.method == 'POST':
+        emp_id = request.POST.get('emp_id')
+        name = request.POST.get('name')
+        address = request.POST.get('address')
+        age = request.POST.get('age')
+        bank_account = request.POST.get('bank_account')
+        salary = request.POST.get('salary')
+        Employee.objects.create(
+            emp_id=emp_id,
+            name=name,
+            age=age,
+            address=address,
+            bank_account=bank_account,
+            basic_salary=salary
+        )
+        messages.success(request, 'Employee added successfully')
+        return redirect('employees.html')
+    return render(request, 'add_employees.html')
+
+
+def edit_employee(request, pk):
+    employee = get_object_or_404(Employee, pk=pk)
+    if request.method == 'POST':
+        employee.name = request.POST.get('name')
+        employee.basic_salary = request.POST.get('salary')
+        employee.save()
+        messages.success(request, 'Employee updated successfully')
+        return redirect('employees.html')
+    return render(request, 'edit_employees.html', {'employee': employee})
+
+
+def delete_employee(request, pk):
+    employee = get_object_or_404(Employee, pk=pk)
+    employee.delete()
+    messages.success(request, 'Employee deleted successfully')
+    return redirect('employees.html')
 
 
 def employees_list(request):
     employees = Employee.objects.all()
-    return render(request, 'Employees.html', {'employees': employees})
+    return render(request, 'employees.html', {'employees': employees})
 
 
 def mark_attendance(request):
@@ -30,8 +78,8 @@ def mark_attendance(request):
             attendance.present = True
             attendance.save()
         messages.success(request, f'Attendance marked for {employee.name} on {date}')
-        return redirect('employees')
-    return render(request, 'Add_Employee HTML.html')
+        return redirect('employees.html')
+    return render(request, 'add_employees.html')
 
 
 def process_payroll(request):
@@ -62,6 +110,15 @@ def process_payroll(request):
                 payment.save()
             processed.append({'emp': emp.emp_id, 'name': emp.name, 'amount': float(amount), 'days_present': present_count})
 
-        return render(request, 'Dashboard_Mod.html', {'processed': processed, 'month': month, 'year': year})
-
-    return render(request, 'Dashboard_Mod.html')
+def pay_salary(request):
+    if request.method == 'POST':
+        month = int(request.POST.get('month'))
+        year = int(request.POST.get('year'))
+        for payment in SalaryPayment.objects.filter(month=month, year=year, paid=False):
+            payment.paid = True
+            payment.paid_at = timezone.now()
+            payment.save()
+            # Simulate bank credit
+            messages.success(request, f'Salary credited to {payment.employee.name} account {payment.employee.bank_account}: {payment.amount}')
+        return redirect('employees.html')
+    return redirect('employees.html')

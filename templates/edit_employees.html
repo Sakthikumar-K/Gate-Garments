@@ -78,23 +78,24 @@
 <h2>Edit Employee</h2>
 
 <form method="post" class="form-box">
+    {% csrf_token %}
 
     <label>Emp ID:</label>
-    <input type="text" name="emp_id" value="001" readonly>
+    <input type="text" name="emp_id" value="{{ employee.emp_id }}" readonly>
 
     <br><br>
 
     <label>Name:</label>
-    <input type="text" name="name" value="Kaliya" required>
+    <input type="text" name="name" value="{{ employee.name }}" required>
 
     <br><br>
 
     <label>Salary Per Day:</label>
-    <input type="number" name="salary" value="500" required>
+    <input type="number" name="salary" value="{{ employee.basic_salary }}" required>
 
     <button type="submit">Update</button>
 
-    <a href="Employees.html" class="back-link">← Back to Employee List</a>
+    <a href="employees.html" class="back-link">← Back to Employee List</a>
 </form>
 
 </body>
